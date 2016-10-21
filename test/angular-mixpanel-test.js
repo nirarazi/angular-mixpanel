@@ -36,6 +36,14 @@ describe('Provider: $mixpanelProvider', function () {
         expect($mixpanel.apiKey()).toBe(apiKey);
     });
 
+    it('should set configuration', function () {
+        var configuration = { persistence: 'localStorage' };
+
+        $mixpanel.config(configuration);
+
+        expect($mixpanel.config()).toBe(configuration);
+    });
+
     it('should set super properties', function () {
         var properties = { prop1: true };
 

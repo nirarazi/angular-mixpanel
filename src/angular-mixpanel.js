@@ -20,7 +20,7 @@
  */
 angular.module('analytics.mixpanel', [])
     .provider('$mixpanel', function () {
-        var apiKey, superProperties;
+        var apiKey, config, superProperties;
 
         /**
          * Init the mixpanel global
@@ -30,7 +30,7 @@ angular.module('analytics.mixpanel', [])
                 throw 'Global `mixpanel` not available. Did you forget to include the library on the page?';
             }
             
-            mixpanel.init(apiKey);            
+            mixpanel.init(apiKey, config);
 
             waitTillAsyncApiLoaded(function () {
                 if (superProperties) mixpanel.register(superProperties);
@@ -83,6 +83,17 @@ angular.module('analytics.mixpanel', [])
             if (!key) return apiKey;
 
             apiKey = key;
+        };
+
+        /**
+         * Get or set the Mixpanel configuration. This can be done via a provider config.
+         *
+         * @param config your Mixpanel configuration
+         */
+        this.config = function (conf) {
+            if (!conf) return config;
+
+            config = conf;
         };
 
         /**
